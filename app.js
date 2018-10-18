@@ -10,21 +10,22 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
+
 mongoose.connect('mongodb://localhost/loginapp');
 var db = mongoose.connection;
 
-
+//http groping routes
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var blogs = require('./routes/blogs');
 
-
-// Init App
+// Init App with express
 var app = express();
 
 
 
 
-// View Engine
+// seting View Engine
 app.set('views', path.join(__dirname, 'views'));
 app.engine('handlebars', exphbs({defaultLayout:'layout'}));
 app.set('view engine', 'handlebars');
@@ -88,10 +89,10 @@ app.use(function (req, res, next) {
 });
 
 
-//app /homepage and / users
+//app /homepage and / users / blogs
 app.use('/', routes);
 app.use('/users', users);
-
+app.use('/blogs', blogs);
 
 // Set Port 
 app.set('port', (process.env.PORT || 3000));
