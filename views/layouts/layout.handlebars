@@ -12,6 +12,14 @@
         <nav>
           <ul class="nav nav-pills pull-right">
             {{#if user}}
+            <!--search forms-->  
+         <div  class="navbar-form navbar-left" role="search">
+         <div class="form-group">
+          <form method="post" action="/blogs/search">
+            <input type="text" class="form-control" placeholder="Search" name="searchtext">
+            <button class="btn btn-primary" type="submit" class="btn btn-default">Search</button>
+          </form>
+            </div>
                 <!--if user  loged in showall blogs,addnew blog,logout and logdin username button -->
              <a class="btn btn-primary" href="/blogs/blogs" aria-expanded="false">Show All Blogs</a>
              <a class="btn btn-primary" href="/blogs/blog" aria-expanded="false">Add New Blog</a>

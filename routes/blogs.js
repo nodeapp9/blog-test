@@ -7,7 +7,7 @@ var Blog = require('../models/blog');
 
 
 
-//create rout  url /blogs/blogs without any prams function  show all Blogs
+//create http  url /blogs/blogs without any prams function  show all Blogs
 router.get('/blogs', ensureAuthenticated, function (req, res) {
 	console.log('show all blogs...')
 
@@ -33,7 +33,7 @@ router.get('/blog', ensureAuthenticated, function (req, res) {
 	res.render('blog');
 });
 
-//http url /blogs/blogs/blogid get blog by blogid 
+//http url with prams /blogs/blogs/blogid get blog by blogid 
 router.get('/blog/:id', ensureAuthenticated, function (req, res) {
 	console.log("Getting blog by id");
 	blogId = req.params.id;
@@ -55,6 +55,28 @@ router.get('/blog/:id', ensureAuthenticated, function (req, res) {
 		});
 	//res.render('blog');
 });
+
+
+router.post('/search', function (req, res) { 
+    var search= req.body.searchtext;
+
+
+	Blog.getBlogByTitle(search, function (err, searchresultblogs) {
+		   if (err) throw err;
+		   console.log("Blog from DB after search...");
+		   console.log(searchresultblogs);
+		   res.render('blogs',
+					{
+						blogs:searchresultblogs,
+						comment:"h1"
+					}
+				  );
+
+		});
+
+
+});
+
 
 // Add Blog 
 router.post('/blog', function (req, res) { // /blogs/blog

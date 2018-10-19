@@ -38,12 +38,21 @@ var BlogSchema = mongoose.Schema({
 
 });
 
+
+
 var Blog = module.exports = mongoose.model('Blog', BlogSchema);
 //functions to create/write blog
 module.exports.createBlog = function(newBlog, callback){
 	        newBlog.save(callback);
 	};
 
+
+
+// get blog by title
+module.exports.getBlogByTitle = function(title, callback){
+	var query = {title: title};
+	Blog.find(query, callback);
+}
 
 //functions to get  blog by id
 module.exports.getBlogById = function(idVar, callback){
